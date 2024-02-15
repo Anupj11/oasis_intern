@@ -1,0 +1,176 @@
+package atm_interface;
+
+ import java.util.HashMap;
+ import java.util.Map;
+import java.util.Scanner;
+
+public class ATM {
+
+    private double balance;
+    private double depositamount;
+    private double withdrawamount;
+    private double transfer;
+
+    Map<Double, String> history = new HashMap<>();
+
+    public ATM() {
+
+    }
+
+    // geter seter methods
+
+    public double getbalance() {
+        return balance;
+    }
+
+    public void setbalnce(double balance) {
+
+        this.balance = balance;
+
+    }
+
+    public double gettransfer() {
+        return transfer;
+    }
+
+    public void settransfer(double transferamount) {
+        this.transfer = transferamount;
+    }
+
+    public double getdepositamount() {
+        return depositamount;
+    }
+
+    public void setdepositamount(double depositamount) {
+        this.depositamount = depositamount;
+    }
+
+    public double getwithdrawamount() {
+        return withdrawamount;
+    }
+
+    public void setwithdrawamount(double withdrawamount) {
+        this.withdrawamount = withdrawamount;
+    }
+
+    public void checkbalnce() {
+        System.out.println("available balnce is:" +getbalance());
+
+    }
+
+    public void withdraw(double withdraw) {
+        if (withdraw > getbalance()) {
+            System.out.println("insufficiant balnce--");
+
+        } else {
+            history.put(withdraw, "Amount withdrawn");
+            System.out.println(withdraw + " Amount withdraw successfully--!");
+            setbalnce(getbalance() - withdraw);
+            checkbalnce();
+        }
+
+    }
+
+    public void deposit(double deposit) {
+
+        history.put(deposit, "Amount deposited");
+        System.out.println(deposit + " Amount deposited successfully--!");
+        setbalnce(getbalance() + deposit);
+        checkbalnce();
+
+    }
+
+    public void transfer(double transfer) {
+        if (transfer > getbalance()) {
+            System.out.println("insufficient balance----");
+
+        } else {
+            history.put(transfer, "Amount transfer");
+            System.out.println( " Amount transfer successfully--!");
+            setbalnce(getbalance() - transfer);
+            checkbalnce();
+        }
+    }
+
+    public void history() {
+        for (Map.Entry<Double, String> m : history.entrySet()) {
+            System.out.println(m.getKey() + m.getValue());
+        }
+    }
+
+    public static void main(String[] args) {
+
+        int atmnumber = 12345;
+        int atmpin = 111;
+
+        Scanner = new Scanner(System.in);
+        System.out.println("\tWELCOM TO THE ATM MACHINE\n");
+        System.out.print("Please Enter the ATM number :-");
+
+        int atmNumber = sc.nextInt();
+        System.out.print("Please Enter the PIN :-");
+        int pin = sc.nextInt();
+
+        ATM atm = new ATM();
+
+        if ((atmNumber == atmnumber) && (pin == atmpin)) {
+
+            while (true) {
+                System.out.println("1.Check Balance\n2.Withdraw\n3.Deposit\n4.Transfer\n5.Transaction history\n6.Quit ");
+                System.out.print("\nEnter the choice :-");
+                int ch = sc.nextInt();
+
+                if (ch == 1) {
+                    atm.checkbalnce();
+
+                } else if (ch == 2) {
+                    System.out.print("Enter the amount which you want to withdraw :");
+                    double with = sc.nextDouble();
+                    atm.withdraw(with);
+
+                }
+
+                else if (ch == 3) {
+                    System.out.print("Enter the amount whith you want to deposit:-");
+
+                    double depo = sc.nextDouble();
+                    atm.deposit(depo);
+
+                }
+
+                else if (ch == 4) {
+                    System.out.print("Enter recipients account number:-");
+                    int no = sc.nextInt();
+                    System.out.print("Enter the ammount which you want to transfer:-");
+                    double trans = sc.nextDouble();
+                    atm.transfer(trans);
+
+                }
+
+                else if (ch == 5) {
+                    atm.history();
+                }
+
+                else if (ch == 6) {
+
+                    System.out.println("\tplz collect your ATM card \n THANK YOU FOR USING ATM MACHINE \n \t PLESE VISIT AGAIN............\n \n \n");
+                    System.exit(0);
+
+                }
+
+                else {
+                    System.out.println("please , ENter correct choice");
+
+                }
+            }
+
+        }
+
+        else {
+            System.out.println("incorrect ATM number and PIN");
+            System.exit(0);
+        }
+
+    }
+
+}
